@@ -16,8 +16,11 @@ using System.Windows.Shapes;
 namespace ColourMemory
 {
    /// <summary>
-   /// Lógica de interacción para MainWindow.xaml
+   /// Interaction logic for MainWindow.xaml
    /// </summary>
+   /// <remarks> 
+   /// This is our main window. It's a navigation window. It will hold the different views.
+   /// </remarks>
    public partial class MainWindow
    {
       public MainWindow()

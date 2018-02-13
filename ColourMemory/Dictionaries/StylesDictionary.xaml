@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ColourMemory.Dictionaries">
 
+	<!-- This dictionary will hold the different styles used in the app.-->
+	
 	<!-- MAIN WINDOW -->
 	<Style x:Key="GenericWindowStyle" TargetType="{x:Type Window}">
 		<Setter Property="Background">
@@ -10,6 +12,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+	<!-- END MAIN WINDOW -->
 	
 	<!-- BUTTONS -->
 	<Style x:Key="ButtonBase" TargetType="{x:Type Button}">
@@ -35,5 +38,19 @@
 			</Trigger>
 		</Style.Triggers>
 	</Style>
+	<!-- END BUTTONS -->
+	
+	<!-- DATAGRID -->
+	<Style x:Key="DataGridBase" TargetType="{x:Type DataGrid}">
+		<Setter Property="CanUserAddRows" Value="False"/>
+		<Setter Property="CanUserDeleteRows" Value="False"/>
+		<Setter Property="CanUserReorderColumns" Value="False"/>
+		<Setter Property="CanUserResizeColumns" Value="False"/>
+		<Setter Property="CanUserSortColumns" Value="False"/>
+		<Setter Property="AutoGenerateColumns" Value="True"/>
+		<Setter Property="GridLinesVisibility" Value="None"/>
+		<Setter Property="HeadersVisibility" Value="None"/>
+	</Style>
+	<!-- END DATAGRID -->
 
 </ResourceDictionary>
