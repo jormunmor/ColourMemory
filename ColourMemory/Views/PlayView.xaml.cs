@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColourMemory.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace ColourMemory.Views
       public PlayView()
       {
          InitializeComponent();
+         CardsViewModel vm = new CardsViewModel();
+         this.DataContext = vm;
+         vm.PrintCardDeck();
       }
    }
 }

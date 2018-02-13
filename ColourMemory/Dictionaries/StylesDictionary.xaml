@@ -47,9 +47,14 @@
 		<Setter Property="CanUserReorderColumns" Value="False"/>
 		<Setter Property="CanUserResizeColumns" Value="False"/>
 		<Setter Property="CanUserSortColumns" Value="False"/>
+		<Setter Property="IsReadOnly" Value="True"/>
 		<Setter Property="AutoGenerateColumns" Value="True"/>
 		<Setter Property="GridLinesVisibility" Value="None"/>
 		<Setter Property="HeadersVisibility" Value="None"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
 	</Style>
 	<!-- END DATAGRID -->
 

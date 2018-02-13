@@ -19,7 +19,9 @@
 				<RowDefinition Height="0.50*" />
 				<RowDefinition Height="0.25*" />
 			</Grid.RowDefinitions>
-			<DataGrid Grid.Row="1" x:Name="grid" SelectedItem="{Binding ItemSelect, Mode=TwoWay}" ItemsSource="{Binding DataView}" />
+			<Viewbox Grid.Row="1" >
+				<DataGrid Name="grid" Style="{StaticResource DataGridBase}" SelectedItem="{Binding ItemSelect, Mode=TwoWay}" ItemsSource="{Binding DataView}" />
+			</Viewbox>
 		</Grid>
 
 	</Grid>
