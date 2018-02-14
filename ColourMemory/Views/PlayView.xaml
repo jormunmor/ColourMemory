@@ -20,7 +20,7 @@
 				<RowDefinition Height="0.25*" />
 			</Grid.RowDefinitions>
 			<Viewbox Grid.Row="1" >
-				<DataGrid Name="grid" Style="{StaticResource DataGridBase}" SelectedItem="{Binding ItemSelect, Mode=TwoWay}" ItemsSource="{Binding DataView}" />
+				<DataGrid Name="grid" Style="{StaticResource DataGridBase}" CurrentCell="{Binding CellInfo, Mode=TwoWay}" ItemsSource="{Binding DataView}" />
 			</Viewbox>
 		</Grid>
 

@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 using static System.Console;
 
@@ -42,16 +44,18 @@ namespace ColourMemory.ViewModels
       /// </summary>
       private int GameSize { get; set; }
 
-      private DataRowView itemSelect;
-      public DataRowView ItemSelect
+      private DataGridCellInfo _cellInfo;
+      public DataGridCellInfo CellInfo
       {
-         get
-         {
-            return itemSelect;
-         }
+         get { return _cellInfo; }
          set
          {
-            itemSelect = value;
+            _cellInfo = value;
+            DataGridColumn col = _cellInfo.Column;
+            int columnIndex = col.DisplayIndex;
+            DataRowView row = (DataRowView) _cellInfo.Item;
+            object val = row.Row.ItemArray[columnIndex];
+            Console.WriteLine("val: " + val);
          }
       }
 
