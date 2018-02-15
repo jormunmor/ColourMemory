@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -46,6 +47,18 @@ namespace ColourMemory.Tools
          }
 
          return colorList;
+      }
+
+      public static void ApplyBlur(Window win)
+      {
+         var objBlur = new System.Windows.Media.Effects.BlurEffect();
+         objBlur.Radius = 10;
+         win.Effect = objBlur;
+      }
+
+      public static void SupressEffects(Window win)
+      {
+         win.Effect = null;
       }
    }
 }

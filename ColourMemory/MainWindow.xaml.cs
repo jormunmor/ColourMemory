@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColourMemory.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,8 +37,10 @@ namespace ColourMemory
       /// <param name="e"></param>
       private void NavigationWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
       {
+         ImageTools.ApplyBlur(Application.Current.MainWindow);         
          var result = MessageBox.Show("Are you sure you want to exit?", "Confirmation Required", MessageBoxButton.YesNo);
-         if(result.Equals(MessageBoxResult.No))
+         ImageTools.SupressEffects(Application.Current.MainWindow);
+         if (result.Equals(MessageBoxResult.No))
          {
             e.Cancel = true;
          }

@@ -25,9 +25,14 @@ namespace ColourMemory.Views
          InitializeComponent();
       }
 
-      private void Button_Click(object sender, RoutedEventArgs e)
+      private void Button_Play_Click(object sender, RoutedEventArgs e)
       {
          NavigationService?.Navigate(new PlayView());
+      }
+
+      private void Button_Exit_Click(object sender, RoutedEventArgs e)
+      {
+         Application.Current.MainWindow.Close();
       }
    }
 }
