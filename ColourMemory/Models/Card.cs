@@ -18,7 +18,7 @@ namespace ColourMemory.Models
    /// It contains a card color, an image for the back side, an image for the front side, 
    /// the side that is currently visible by the user, and an identifier for debugging purposes.
    /// </remarks>
-   class Card : BaseModel
+   public class Card : BaseModel
    {
       /// <summary>
       ///  The color of the card.
@@ -107,6 +107,26 @@ namespace ColourMemory.Models
       }
 
       /// <summary>
+      /// The image that is currently visible in the view: either the BackImage or FrontImage.
+      /// </summary>
+      bool paired;
+      public bool Paired
+      {
+         get
+         {
+            return paired;
+         }
+         set
+         {
+            if (paired != value)
+            {
+               paired = value;
+               RaisePropertyChanged("Paired");
+            }
+         }
+      }
+
+      /// <summary>
       ///   This Property is used only for debugging purposes.
       /// </summary>
       int cardID;
@@ -132,12 +152,17 @@ namespace ColourMemory.Models
          CardID = id;
          // Create the back image.
          BackImage = new Image();
-         BackImage.Source = new BitmapImage(new Uri(Application.Current.FindResource("BackImagePath") as string));
+         BackImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/back_side.png"));
          // Create the front image.
          FrontImage = new Image();
          FrontImage.Source = ImageTools.CreateBitmapSource(color);
+         FrontImage.Width = BackImage.Width;
+         FrontImage.Height = BackImage.Height;
          // Set the back as the visible side .
-         VisibleSide = BackImage;
+         VisibleSide = new Image();
+         VisibleSide.Source = BackImage.Source;
+         // Set the state of the card to unpaired
+         Paired = false;
       }
 
    }

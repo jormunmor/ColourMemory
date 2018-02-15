@@ -17,17 +17,28 @@ namespace ColourMemory.ViewModels
    /// <summary>
    ///  This class represents the view-model (DataContext) for the PlayView.
    /// </summary>
-   class CardsViewModel : BaseViewModel
+   public class CardsViewModel : BaseViewModel
    {
       /// <summary>
       /// An array containing all the cards in the game.
       /// </summary>
-      private Card[,] CardDeck { get; set; }
+      public Card[,] CardDeck { get; set; }
 
       /// <summary>
       /// A data structure used in bindings from the PlayView. It represents the board with all cards.
       /// </summary>
-      public DataView DataView { get; set; }
+      private DataView dataView;
+      public DataView DataView {
+         get { return dataView; }
+         set
+         {
+            if (dataView != value)
+            {
+               dataView = value;
+               RaisePropertyChanged("DataView");
+            }
+         }
+      }
 
       /// <summary>
       /// A list of the used colors, generated randomnly.
@@ -44,6 +55,13 @@ namespace ColourMemory.ViewModels
       /// </summary>
       private int GameSize { get; set; }
 
+      /// <summary>
+      /// This property is modified by the CurrentCell event of the DataGrid.
+      /// </summary>
+      /// <remarks>
+      /// When the user clicks over an image, the CurrentCell event is fired. Then, if the card is unpaired,
+      /// it will be flipped.
+      /// </remarks>
       private DataGridCellInfo _cellInfo;
       public DataGridCellInfo CellInfo
       {
@@ -51,11 +69,19 @@ namespace ColourMemory.ViewModels
          set
          {
             _cellInfo = value;
+            if (_cellInfo.Column == null)
+            {
+               return;
+            }
             DataGridColumn col = _cellInfo.Column;
             int columnIndex = col.DisplayIndex;
-            DataRowView row = (DataRowView) _cellInfo.Item;
-            object val = row.Row.ItemArray[columnIndex];
-            Console.WriteLine("val: " + val);
+            DataRowView row = (DataRowView) _cellInfo.Item;            
+            Card card = row.Row.ItemArray[columnIndex] as Card;
+            if (!card.Paired && card.VisibleSide.Source == card.BackImage.Source)
+            {
+               card.VisibleSide.Source = card.FrontImage.Source;
+               RefresDataView();
+            }            
          }
       }
 
@@ -115,18 +141,32 @@ namespace ColourMemory.ViewModels
          var rows = BoardWidth;
          for (var c = 0; c < columns; c++)
          {
-            t.Columns.Add(new DataColumn(c.ToString()));
+            t.Columns.Add(new DataColumn(c.ToString(), typeof(Card))); // We need to tell the type of objects or by default string datatype will be used.
          }
          for (var r = 0; r < rows; r++)
          {
             var newRow = t.NewRow();
             for (var c = 0; c < columns; c++)
             {
-               newRow[c] = CardDeck[r, c].CardID;
+               newRow[c] = CardDeck[r, c];
             }
             t.Rows.Add(newRow);
          }
          DataView = t.DefaultView;
+      }
+
+      /// <summary>
+      /// This method is used to force updating the DataView.
+      /// </summary>
+      /// <remarks>
+      /// As we are not using an ObservableCollection, changing an object inside de DataView does not take effect
+      /// on the View. To force that, set to null and recover the original reference. That forces the View to refresh.
+      /// </remarks>
+      private void RefresDataView()
+      {
+         DataView tmpDataView = DataView;
+         DataView = null;
+         DataView = tmpDataView;
       }
 
       /// <summary>

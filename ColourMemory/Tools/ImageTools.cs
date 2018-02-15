@@ -12,8 +12,8 @@ namespace ColourMemory.Tools
    {
       public static BitmapSource CreateBitmapSource(System.Windows.Media.Color color)
       {
-         int width = 128;
-         int height = width;
+         int width = 80;
+         int height = 100;
          int stride = width / 8;
          byte[] pixels = new byte[height * stride];
 

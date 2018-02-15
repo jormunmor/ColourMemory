@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ColourMemory.ViewModels
 {
-   class BaseViewModel : INotifyPropertyChanged
+   public class BaseViewModel : INotifyPropertyChanged
    {
       public void RaisePropertyChanged(string prop)
       {

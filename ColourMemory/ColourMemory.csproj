@@ -60,6 +60,7 @@
     <Compile Include="Tools\ImageTools.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CardsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\LogoView.xaml.cs">
       <DependentUpon>LogoView.xaml</DependentUpon>
     </Compile>

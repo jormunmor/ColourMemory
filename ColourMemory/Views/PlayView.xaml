@@ -3,10 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ColourMemory.Views"
+      xmlns:c="clr-namespace:ColourMemory.ViewModels"
+		xmlns:vm="clr-namespace:ColourMemory.Views"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
+		DataContext="{Binding CardsViewModel, Source={StaticResource ViewModelLocator}}"
       Title="PlayView">
+	<Page.Resources>
+		<vm:DataConverter x:Key="DataConverter" />		
+	</Page.Resources>
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0.25*" />
@@ -20,7 +25,35 @@
 				<RowDefinition Height="0.25*" />
 			</Grid.RowDefinitions>
 			<Viewbox Grid.Row="1" >
-				<DataGrid Name="grid" Style="{StaticResource DataGridBase}" CurrentCell="{Binding CellInfo, Mode=TwoWay}" ItemsSource="{Binding DataView}" />
+				<DataGrid Name="CardsGrid" Style="{StaticResource DataGridBase}" CurrentCell="{Binding CellInfo, Mode=TwoWay}" ItemsSource="{Binding DataView, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+					<DataGrid.CellStyle>
+						<Style TargetType="{x:Type DataGridCell}">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="{x:Type DataGridCell}">
+										<StackPanel>
+											<Image Source="{Binding Converter={StaticResource DataConverter}}"/>
+										</StackPanel>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+							<Style.Triggers>
+								<Trigger Property="IsSelected"  Value="True">
+									<Setter Property="BorderThickness" Value="0"/>
+									<Setter Property="BorderBrush" Value="Transparent"/>
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="Foreground" Value="Black"/>
+								</Trigger>
+								<Trigger Property="IsFocused"  Value="True">
+									<Setter Property="BorderThickness" Value="2"/>
+									<Setter Property="BorderBrush" Value="Red"/>
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="Foreground" Value="Black"/>
+								</Trigger>
+							</Style.Triggers>
+						</Style>
+					</DataGrid.CellStyle>
+				</DataGrid> 
 			</Viewbox>
 		</Grid>
 

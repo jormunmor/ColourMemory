@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ColourMemory.Models
 {
-   class BaseModel : INotifyPropertyChanged
+   public class BaseModel : Image, INotifyPropertyChanged
    {
       public void RaisePropertyChanged(string prop)
       {

@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ColourMemory.Dictionaries"
+						  xmlns:vm="clr-namespace:ColourMemory.ViewModels"
 						  xmlns:system="clr-namespace:System;assembly=mscorlib">
 
 	<!-- This dictionary will hold the different images used in the app.-->
 	
-	<!-- Resource uri for the back side card image. -->
-	<system:String x:Key="BackImagePath">pack://application:,,,/Resources/back_side.png</system:String>
+	<vm:ViewModelLocator x:Key="ViewModelLocator"/>
 
 </ResourceDictionary>
