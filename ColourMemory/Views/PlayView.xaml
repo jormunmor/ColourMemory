@@ -18,6 +18,9 @@
 			<ColumnDefinition Width="0.50*" />
 			<ColumnDefinition Width="0.25*" />
 		</Grid.ColumnDefinitions>
+		<Viewbox Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="Both">
+			<Image Source="pack://application:,,,/Resources/logo.png" VerticalAlignment="Top" HorizontalAlignment="Left"  />
+		</Viewbox>
 		<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="0.25*" />

@@ -63,7 +63,7 @@ namespace ColourMemory.Views
       {
          try
          {
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             Dispatcher.Invoke(() =>
             {
                NavigationService?.Navigate(new StartView());

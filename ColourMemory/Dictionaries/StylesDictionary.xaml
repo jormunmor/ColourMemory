@@ -9,7 +9,7 @@
 	<Style x:Key="GenericWindowStyle" TargetType="{x:Type Window}">
 		<Setter Property="Background">
 			<Setter.Value>
-				<ImageBrush ImageSource="../Resources/background.png" Opacity="1" Stretch="Fill"/>
+				<ImageBrush ImageSource="../Resources/background.jpg" Opacity="1" Stretch="Fill"/>
 			</Setter.Value>
 		</Setter>
 	</Style>
