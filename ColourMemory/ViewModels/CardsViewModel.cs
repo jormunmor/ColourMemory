@@ -44,7 +44,19 @@ namespace ColourMemory.ViewModels
       /// <summary>
       /// The score of the user.
       /// </summary>
-      private int Score { get; set; }
+      private int score;
+      public int Score
+      {
+         get { return score; }
+         set
+         {
+            if (score != value)
+            {
+               score = value;
+               RaisePropertyChanged("Score");
+            }
+         }
+      }
 
       /// <summary>
       /// A data structure used in bindings from the PlayView. It represents the board with all cards.
@@ -131,6 +143,8 @@ namespace ColourMemory.ViewModels
       /// <seealso cref="FillDataView()"/>
       private void InitializeGame()
       {
+         // Set score to zero
+         Score = 0;
          // Get the size of the game (width*width).
          BoardWidth = int.Parse(ConfigurationManager.AppSettings["board_width"]);
          GameSize = BoardWidth * BoardWidth;
@@ -256,6 +270,7 @@ namespace ColourMemory.ViewModels
                FlippedCard2.Remove();
                if(GameEnd())
                {
+                  RefresDataView();
                   CheckScoreAndFinish();
                }
             }

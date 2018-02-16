@@ -59,6 +59,11 @@
 				</DataGrid> 
 			</Viewbox>
 		</Grid>
-
+		<Viewbox Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Stretch="Uniform" StretchDirection="Both">
+			<StackPanel Orientation="Horizontal">
+				<Label Content="Score: " />
+				<Label Content="{Binding Score, Mode=TwoWay}"/>
+			</StackPanel>
+		</Viewbox>
 	</Grid>
 </Page>
