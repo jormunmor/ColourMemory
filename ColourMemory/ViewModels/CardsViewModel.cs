@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -241,7 +242,23 @@ namespace ColourMemory.ViewModels
 
       void CheckScoreAndFinish()
       {
-         MessageBox.Show($"You finished the game with a score of: {Score}.", "Congratulations!");
+         string newRecord = "";
+         List<int> recordList = TextTools.GetRecords();
+         int[] records = recordList.ToArray();
+         if(records != null && records.Count() > 0) // modify the array to include the new value if it's a record.
+         {
+            if(records.All(x => x < Score))
+            {
+               recordList.Insert(0, Score);
+               TextTools.SaveRecords(recordList.ToArray());
+               newRecord = " You got a new record!";
+            }
+         }else
+         {
+            TextTools.SaveRecords(new int[] { Score });
+            newRecord = " You got a new record!";
+         }
+         MessageBox.Show($"You finished the game with a score of: {Score}." + newRecord, "Congratulations!");
          Threading.Invoke(() =>
          {
             NavigationWindow mainWindow = Application.Current.MainWindow as NavigationWindow;

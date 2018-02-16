@@ -1,13 +1,14 @@
-﻿<Page x:Class="ColourMemory.Views.StartView"
+﻿<Page x:Class="ColourMemory.Views.RecordsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ColourMemory.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="480" d:DesignWidth="640"
-      Title="Colour Memory">
-    <Grid>
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="RecordsView">
+
+	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0.25*" />
 			<ColumnDefinition Width="0.5*" />
@@ -16,15 +17,16 @@
 		<Viewbox Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="Both">
 			<Image Source="pack://application:,,,/Resources/logo.png" VerticalAlignment="Top" HorizontalAlignment="Left"  />
 		</Viewbox>
+		<Viewbox Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="Both">
+			<Button Name="ButtonBack" Grid.Column="0" Content="Back" Style="{StaticResource ButtonBase}" Click="ButtonBack_Click" />
+		</Viewbox>		
 		<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="1*" />
-				<RowDefinition Height="1*" />
-				<RowDefinition Height="1*" />
+				<RowDefinition Height="0.15*" />
+				<RowDefinition Height="0.7*" />
+				<RowDefinition Height="0.15*" />
 			</Grid.RowDefinitions>
-			<Button Grid.Row="0" Content="Play" Style="{StaticResource ButtonBase}" Click="Button_Play_Click"  />
-			<Button Grid.Row="1" Content="Highscores" Style="{StaticResource ButtonBase}" Click="Button_Scores_Click" />
-			<Button Grid.Row="2" Content="Exit" Style="{StaticResource ButtonBase}" Click="Button_Exit_Click" />
+			<TextBlock Name="RecordTextBlock" IsEnabled="False" FontSize="48" TextAlignment="Center" Grid.Row="1" Background="White" Foreground="Black" IsVisibleChanged="TextBlock_IsVisibleChanged" />
 		</Grid>
-    </Grid>
+	</Grid>
 </Page>

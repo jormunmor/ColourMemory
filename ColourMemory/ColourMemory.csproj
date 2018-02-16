@@ -58,6 +58,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Tools\ImageTools.cs" />
+    <Compile Include="Tools\TextTools.cs" />
     <Compile Include="Tools\Threading.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CardsViewModel.cs" />
@@ -67,6 +68,9 @@
     </Compile>
     <Compile Include="Views\PlayView.xaml.cs">
       <DependentUpon>PlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecordsView.xaml.cs">
+      <DependentUpon>RecordsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
@@ -96,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecordsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

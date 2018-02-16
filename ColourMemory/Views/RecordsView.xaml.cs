@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColourMemory.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,28 +17,26 @@ using System.Windows.Shapes;
 namespace ColourMemory.Views
 {
    /// <summary>
-   /// Lógica de interacción para StartView.xaml
+   /// Lógica de interacción para RecordsView.xaml
    /// </summary>
-   public partial class StartView : Page
+   public partial class RecordsView : Page
    {
-      public StartView()
+      public RecordsView()
       {
          InitializeComponent();
       }
 
-      private void Button_Play_Click(object sender, RoutedEventArgs e)
+      private void ButtonBack_Click(object sender, RoutedEventArgs e)
       {
-         NavigationService?.Navigate(new PlayView());
+         NavigationService?.Navigate(new StartView());
       }
 
-      private void Button_Exit_Click(object sender, RoutedEventArgs e)
+      private void TextBlock_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
       {
-         Application.Current.MainWindow.Close();
-      }
-
-      private void Button_Scores_Click(object sender, RoutedEventArgs e)
-      {
-         NavigationService?.Navigate(new RecordsView());
+         if(RecordTextBlock.IsVisible)
+         {
+            RecordTextBlock.Text = TextTools.GetRecordsText();
+         }
       }
    }
 }
