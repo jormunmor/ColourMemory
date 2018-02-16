@@ -28,7 +28,7 @@
 				<RowDefinition Height="0.25*" />
 			</Grid.RowDefinitions>
 			<Viewbox Grid.Row="1" >
-				<DataGrid Name="CardsGrid" Style="{StaticResource DataGridBase}" CurrentCell="{Binding CellInfo, Mode=TwoWay}" ItemsSource="{Binding DataView, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+				<DataGrid Name="CardsGrid" Style="{StaticResource DataGridBase}" CurrentCell="{Binding CellInfo, Mode=TwoWay}" ItemsSource="{Binding DataView, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" >
 					<DataGrid.CellStyle>
 						<Style TargetType="{x:Type DataGridCell}">
 							<Setter Property="Template">
@@ -45,13 +45,13 @@
 									<Setter Property="BorderThickness" Value="0"/>
 									<Setter Property="BorderBrush" Value="Transparent"/>
 									<Setter Property="Background" Value="Transparent"/>
-									<Setter Property="Foreground" Value="Black"/>
+									<Setter Property="Foreground" Value="Transparent"/>
 								</Trigger>
 								<Trigger Property="IsFocused"  Value="True">
 									<Setter Property="BorderThickness" Value="2"/>
 									<Setter Property="BorderBrush" Value="Red"/>
 									<Setter Property="Background" Value="Transparent"/>
-									<Setter Property="Foreground" Value="Black"/>
+									<Setter Property="Foreground" Value="Transparent"/>
 								</Trigger>
 							</Style.Triggers>
 						</Style>

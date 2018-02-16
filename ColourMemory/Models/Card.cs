@@ -87,6 +87,29 @@ namespace ColourMemory.Models
       }
 
       /// <summary>
+      /// The image used as transparent background.
+      /// </summary>
+      /// <remarks>
+      /// Will be displayed when the card is paired with another of the same color.
+      /// </remarks>
+      Image transparentImage;
+      public Image TransparentImage
+      {
+         get
+         {
+            return transparentImage;
+         }
+         set
+         {
+            if (transparentImage != value)
+            {
+               transparentImage = value;
+               RaisePropertyChanged("TransparentImage");
+            }
+         }
+      }
+
+      /// <summary>
       /// The image that is currently visible in the view: either the BackImage or FrontImage.
       /// </summary>
       Image visibleSide;
@@ -158,6 +181,9 @@ namespace ColourMemory.Models
          FrontImage.Source = ImageTools.CreateBitmapSource(color);
          FrontImage.Width = BackImage.Width;
          FrontImage.Height = BackImage.Height;
+         // Create the transparent image.
+         TransparentImage = new Image();
+         TransparentImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/transparent_side.png"));
          // Set the back as the visible side .
          VisibleSide = new Image();
          VisibleSide.Source = BackImage.Source;

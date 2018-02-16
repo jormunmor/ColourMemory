@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace ColourMemory.Models
 {
-   public class BaseModel : Image, INotifyPropertyChanged
+   public class BaseModel : INotifyPropertyChanged
    {
       public void RaisePropertyChanged(string prop)
       {
