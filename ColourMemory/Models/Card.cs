@@ -228,6 +228,22 @@ namespace ColourMemory.Models
       }
 
       /// <summary>
+      /// This method puts a card face up.
+      /// </summary>
+      public void PutFaceUp()
+      {
+         VisibleSide.Source = FrontImage.Source;
+      }
+
+      /// <summary>
+      /// This method puts a card face down.
+      /// </summary>
+      public void PutFaceDown()
+      {
+         VisibleSide.Source = BackImage.Source;
+      }
+
+      /// <summary>
       /// Override of Equals to compare to card objects equality.
       /// </summary>
       /// <param name="obj"></param>

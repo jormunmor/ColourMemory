@@ -82,20 +82,17 @@ namespace ColourMemory.ViewModels
          get { return _cellInfo; }
          set
          {
-            _cellInfo = value;
+            if(_cellInfo != value)
+            {
+               _cellInfo = value;
+               RaisePropertyChanged("CellInfo");
+            }
+            
             if (_cellInfo.Column == null)
             {
                return;
             }
-            DataGridColumn col = _cellInfo.Column;
-            int columnIndex = col.DisplayIndex;
-            DataRowView row = (DataRowView) _cellInfo.Item;            
-            Card card = row.Row.ItemArray[columnIndex] as Card;
-            if (!card.Paired && card.VisibleSide.Source == card.BackImage.Source)
-            {
-               card.VisibleSide.Source = card.FrontImage.Source;
-               RefresDataView();
-            }            
+            CheckGameStatus(GetCardFromCellInfo(_cellInfo));         
          }
       }
 
@@ -131,7 +128,6 @@ namespace ColourMemory.ViewModels
          GameSize = BoardWidth * BoardWidth;
          // Initialize to null the flipped cards.
          FlippedCard1 = null;
-         FlippedCard2 = null;
          // Set the color list, filled with random colors (each repeated twice).
          colorList = ImageTools.GenerateRandomColorList(GameSize);
          // Create the card deck.
@@ -161,9 +157,46 @@ namespace ColourMemory.ViewModels
          }
       }
 
+      Card GetCardFromCellInfo(DataGridCellInfo info)
+      {
+         // First we recover the clicked card.
+         DataGridColumn col = _cellInfo.Column;
+         int columnIndex = col.DisplayIndex;
+         DataRowView row = (DataRowView)_cellInfo.Item;
+         Card card = row.Row.ItemArray[columnIndex] as Card;
+
+         return card;
+      }
+
+      /// <summary>
+      /// This method checks if there is one card currently face up in the game.
+      /// </summary>
+      /// <returns>True if and only if one card is face up. False if all cards are face down.</returns>
       bool CheckOneCardFlipped()
       {
          return (FlippedCard1 != null);
+      }
+
+      /// <summary>
+      /// This method checks the game status after trying to flip a card.
+      /// </summary>
+      /// <param name="card"></param>
+      void CheckGameStatus(Card card)
+      {
+         // Check card and game status.
+         if (!card.Paired && card.IsFaceDown())
+         {
+            card.PutFaceUp();
+            if (FlippedCard1 != null) // We have two cards face up. Compare them.
+            {
+
+            }
+            else // We only have one card face up. Update FlippedCard1
+            {
+
+            }            
+         }
+         RefresDataView();
       }
 
       /// <summary>
