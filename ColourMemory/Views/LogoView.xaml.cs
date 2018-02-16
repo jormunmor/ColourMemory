@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColourMemory.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,19 +62,11 @@ namespace ColourMemory.Views
       /// </remarks>
       private void SleepAndNavigate()
       {
-         try
+         Thread.Sleep(2000);
+         Threading.Invoke(() =>
          {
-            Thread.Sleep(2000);
-            Dispatcher.Invoke(() =>
-            {
-               NavigationService?.Navigate(new StartView());
-            });
-         } catch(System.Threading.Tasks.TaskCanceledException)
-         {
-            // This exception will raise if the user presses the close button before navigating to the StartView.
-            // We only print in console for debugging purposes.
-            WriteLine("Task cancelled.");
-         }
+            NavigationService?.Navigate(new StartView());
+         });
       }
    }
 }

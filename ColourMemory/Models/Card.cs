@@ -133,26 +133,6 @@ namespace ColourMemory.Models
       }
 
       /// <summary>
-      /// The image that is currently visible in the view: either the BackImage or FrontImage.
-      /// </summary>
-      bool paired;
-      public bool Paired
-      {
-         get
-         {
-            return paired;
-         }
-         set
-         {
-            if (paired != value)
-            {
-               paired = value;
-               RaisePropertyChanged("Paired");
-            }
-         }
-      }
-
-      /// <summary>
       ///   This Property is used only for debugging purposes.
       /// </summary>
       int cardID;
@@ -200,6 +180,8 @@ namespace ColourMemory.Models
       {
          // Assign the id.
          CardID = id;
+         // Assign the color.
+         CardColor = color;
          // Create the back image.
          BackImage = new Image();
          BackImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/back_side.png"));
@@ -214,8 +196,6 @@ namespace ColourMemory.Models
          // Set the back as the visible side .
          VisibleSide = new Image();
          VisibleSide.Source = BackImage.Source;
-         // Set the state of the card to unpaired
-         Paired = false;
       }
 
       /// <summary>
@@ -241,6 +221,19 @@ namespace ColourMemory.Models
       public void PutFaceDown()
       {
          VisibleSide.Source = BackImage.Source;
+      }
+
+      /// <summary>
+      /// This methods removes a card from the game, by putting it in a transparent background.
+      /// </summary>
+      public void Remove()
+      {
+         VisibleSide.Source = TransparentImage.Source;
+      }
+
+      public bool IsRemoved()
+      {
+         return VisibleSide.Source == TransparentImage.Source;
       }
 
       /// <summary>

@@ -24,6 +24,8 @@ namespace ColourMemory
    /// </remarks>
    public partial class MainWindow
    {
+      public NavigationService navigationService;
+
       public MainWindow()
       {
          InitializeComponent();

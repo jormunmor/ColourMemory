@@ -9,8 +9,16 @@ using System.Windows.Media.Imaging;
 
 namespace ColourMemory.Tools
 {
-   class ImageTools
+   /// <summary>
+   /// Helper class to manage image and graphics drawing.
+   /// </summary>
+   public static class ImageTools
    {
+      /// <summary>
+      /// This methods creates an image given a color.
+      /// </summary>
+      /// <param name="color">The color of the image.</param>
+      /// <returns>The new image as BitmapSource.</returns>
       public static BitmapSource CreateBitmapSource(System.Windows.Media.Color color)
       {
          int width = 80;
@@ -35,8 +43,16 @@ namespace ColourMemory.Tools
          return image;
       }
 
+      /// <summary>
+      /// This method generates a random list of colors.
+      /// </summary>
+      /// <param name="size">The list size</param>
+      /// <returns>The list of colors.</returns>
+      /// <remarks>
+      /// Each color is repeated twice, for the GameColour rules.
+      /// </remarks>
       public static List<Color> GenerateRandomColorList(int size)
-      {
+      {         
          List<Color> colorList = new List<Color>(size);
          Random random = new Random();
          for (int i = 0; i < size / 2; i++)

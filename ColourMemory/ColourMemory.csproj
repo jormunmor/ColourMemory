@@ -58,6 +58,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Tools\ImageTools.cs" />
+    <Compile Include="Tools\Threading.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CardsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />

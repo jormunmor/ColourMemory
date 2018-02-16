@@ -1,5 +1,6 @@
 ﻿using ColourMemory.Models;
 using ColourMemory.Tools;
+using ColourMemory.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,9 +8,13 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Navigation;
+using System.Windows.Threading;
 using static System.Console;
 
 namespace ColourMemory.ViewModels
@@ -30,6 +35,11 @@ namespace ColourMemory.ViewModels
       /// The first card flipped by the user.
       /// </summary>
       private Card FlippedCard1 { get; set; }
+
+      /// <summary>
+      /// The second card flipped by the user.
+      /// </summary>
+      private Card FlippedCard2 { get; set; }
 
       /// <summary>
       /// The score of the user.
@@ -66,8 +76,6 @@ namespace ColourMemory.ViewModels
       /// The size of the card board (always a squared board with dimensions BoardWidth^2).
       /// </summary>
       private int GameSize { get; set; }
-
-
 
       /// <summary>
       /// This property is modified by the CurrentCell event of the DataGrid.
@@ -184,20 +192,84 @@ namespace ColourMemory.ViewModels
       void CheckGameStatus(Card card)
       {
          // Check card and game status.
-         if (!card.Paired && card.IsFaceDown())
+         if(FlippedCard1 != null && FlippedCard2 != null)
+         {
+            return;
+         }
+         if (!card.IsRemoved() && card.IsFaceDown())
          {
             card.PutFaceUp();
             if (FlippedCard1 != null) // We have two cards face up. Compare them.
             {
-
+               FlippedCard2 = card;
+               Thread thread = new Thread(() => SleepAndUpdateGame());
+               thread.Start();               
             }
-            else // We only have one card face up. Update FlippedCard1
+            else // We only have one card face up (the new). Update FlippedCard1.
             {
-
+               FlippedCard1 = card;
             }            
          }
          RefresDataView();
       }
+
+      bool GameEnd()
+      {
+         foreach(Card card in CardDeck)
+         {
+            if(card.IsFaceDown())
+            {
+               return false;
+            }
+         }
+         return true;
+      }
+
+      void CheckScoreAndFinish()
+      {
+         MessageBox.Show($"You finished the game with a score of: {Score}.", "Congratulations!");
+         Threading.Invoke(() =>
+         {
+            NavigationWindow mainWindow = Application.Current.MainWindow as NavigationWindow;
+            mainWindow.NavigationService.Navigate(new StartView());
+         });
+
+      }
+
+      /// <summary>
+      /// This method is executed as a thread. It has the purpose of invoking some main thread code
+      /// after waiting 2 seconds.
+      /// </summary>
+      /// <remarks>
+      /// This thread does not block the main thread with sleep, and the code executed in invoke is called
+      /// within the main thread, so we don't have to manage concurrency and avoid using locks.
+      /// </remarks>
+      private void SleepAndUpdateGame()
+      {
+         Thread.Sleep(2000);
+         Threading.Invoke(() =>
+         {            
+            if (FlippedCard2.Equals(FlippedCard1))
+            {
+               Score += 1;
+               FlippedCard1.Remove();
+               FlippedCard2.Remove();
+               if(GameEnd())
+               {
+                  CheckScoreAndFinish();
+               }
+            }
+            else
+            {
+               Score -= 1;
+               FlippedCard1.PutFaceDown();
+               FlippedCard2.PutFaceDown();               
+            }
+            FlippedCard1 = null;
+            FlippedCard2 = null;
+            RefresDataView();
+         });         
+      }      
 
       /// <summary>
       /// This method fills the DataView that is used as binding in the PlayGame view.
