@@ -19,10 +19,22 @@ namespace ColourMemory.ViewModels
    /// </summary>
    public class CardsViewModel : BaseViewModel
    {
+      #region PROPERTIES
+
       /// <summary>
       /// An array containing all the cards in the game.
       /// </summary>
       public Card[,] CardDeck { get; set; }
+
+      /// <summary>
+      /// The first card flipped by the user.
+      /// </summary>
+      private Card FlippedCard1 { get; set; }
+
+      /// <summary>
+      /// The score of the user.
+      /// </summary>
+      private int Score { get; set; }
 
       /// <summary>
       /// A data structure used in bindings from the PlayView. It represents the board with all cards.
@@ -55,6 +67,8 @@ namespace ColourMemory.ViewModels
       /// </summary>
       private int GameSize { get; set; }
 
+
+
       /// <summary>
       /// This property is modified by the CurrentCell event of the DataGrid.
       /// </summary>
@@ -85,20 +99,39 @@ namespace ColourMemory.ViewModels
          }
       }
 
+      #endregion
+
+      #region CONSTRUCTORS
+
       /// <summary>
-      /// The constructor for the CardsViewModel.
+      /// The constructor for the CardsViewModel. It nitializes the game.
+      /// </summary>      
+      public CardsViewModel()
+      {
+         InitializeGame();
+      }
+
+      #endregion
+
+      #region METHODS
+
+      /// <summary>
+      /// This method initializes a new game.
       /// </summary>
       /// <remarks>
       /// It generates a color list, a card deck and a DataView from the cards.
       /// </remarks>
-      /// <seealso cref="Tools.ImageTools.GenerateRandomColorList(int)"/>
+      /// /// <seealso cref="Tools.ImageTools.GenerateRandomColorList(int)"/>
       /// <seealso cref="GenerateCardDeck()"/>
       /// <seealso cref="FillDataView()"/>
-      public CardsViewModel()
+      private void InitializeGame()
       {
          // Get the size of the game (width*width).
          BoardWidth = int.Parse(ConfigurationManager.AppSettings["board_width"]);
          GameSize = BoardWidth * BoardWidth;
+         // Initialize to null the flipped cards.
+         FlippedCard1 = null;
+         FlippedCard2 = null;
          // Set the color list, filled with random colors (each repeated twice).
          colorList = ImageTools.GenerateRandomColorList(GameSize);
          // Create the card deck.
@@ -126,6 +159,11 @@ namespace ColourMemory.ViewModels
                id++;
             }
          }
+      }
+
+      bool CheckOneCardFlipped()
+      {
+         return (FlippedCard1 != null);
       }
 
       /// <summary>
@@ -169,6 +207,10 @@ namespace ColourMemory.ViewModels
          DataView = tmpDataView;
       }
 
+      #endregion
+
+      #region DEBUGGING METHODS
+
       /// <summary>
       /// This method prints in console the IDs of the cards in the board, in a matrix fashion (row by row).
       /// </summary>
@@ -186,5 +228,8 @@ namespace ColourMemory.ViewModels
             WriteLine();
          }
       }
+
+      #endregion
+
    }
 }

@@ -20,6 +20,9 @@ namespace ColourMemory.Models
    /// </remarks>
    public class Card : BaseModel
    {
+
+      #region PROPERTIES
+
       /// <summary>
       ///  The color of the card.
       /// </summary>
@@ -169,7 +172,31 @@ namespace ColourMemory.Models
          }
       }
 
+      #endregion
+
+      #region CONSTRUCTORS
+
+      /// <summary>
+      /// The constructor for the Card.
+      /// </summary>
+      /// <param name="color">The color of the card.</param>
+      /// <param name="id">A unique identifier.</param>
+      /// <seealso cref="InitializeCard(Color, int)"/>
       public Card(Color color, int id)
+      {
+         InitializeCard(color, id);
+      }
+
+      #endregion
+
+      #region METHODS
+
+      /// <summary>
+      /// Helper method used when creating a new card.
+      /// </summary>
+      /// <param name="color">The color of the card.</param>
+      /// <param name="id">A unique identifier.</param>
+      private void InitializeCard(Color color, int id)
       {
          // Assign the id.
          CardID = id;
@@ -190,6 +217,46 @@ namespace ColourMemory.Models
          // Set the state of the card to unpaired
          Paired = false;
       }
+
+      /// <summary>
+      /// This method checks the state of the card (face down or up).
+      /// </summary>
+      /// <returns>True if the card is face down. False otherwhise.</returns>
+      public bool IsFaceDown()
+      {
+         return (VisibleSide.Source == BackImage.Source);
+      }
+
+      /// <summary>
+      /// Override of Equals to compare to card objects equality.
+      /// </summary>
+      /// <param name="obj"></param>
+      /// <returns>True if the cards have the same color. False otherwise.</returns>
+      public override bool Equals(object obj)
+      {
+         var card = obj as Card;
+
+         if (card == null)
+         {
+            return false;
+         }
+
+         return this.CardColor.Equals(card.CardColor);
+      }
+
+      /// <summary>
+      /// Override of the GetHashCode method.
+      /// </summary>
+      /// <returns>The hashcode of the card color.</returns>
+      /// <remarks>
+      /// We don't really need this, but doing that avoids a warning.
+      /// </remarks>
+      public override int GetHashCode()
+      {
+         return this.CardColor.GetHashCode();
+      }
+
+      #endregion
 
    }
 }
