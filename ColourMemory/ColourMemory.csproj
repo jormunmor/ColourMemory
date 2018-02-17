@@ -150,5 +150,8 @@
   <ItemGroup>
     <Resource Include="Resources\transparent_side.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

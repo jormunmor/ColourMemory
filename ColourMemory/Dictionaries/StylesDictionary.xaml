@@ -12,6 +12,7 @@
 				<ImageBrush ImageSource="../Resources/background.jpg" Opacity="1" Stretch="Fill"/>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="Icon" Value="../Resources/icon.ico" />
 	</Style>
 	<!-- END MAIN WINDOW -->
 	
