@@ -4,8 +4,9 @@
 						  xmlns:vm="clr-namespace:ColourMemory.ViewModels"
 						  xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-	<!-- This dictionary will hold the different images used in the app.-->
+	<!-- This dictionary will hold the different static resources used in the app.-->	
 	
+	<!-- Key for the class that contains the different view models. -->
 	<vm:ViewModelLocator x:Key="ViewModelLocator"/>
 
 </ResourceDictionary>

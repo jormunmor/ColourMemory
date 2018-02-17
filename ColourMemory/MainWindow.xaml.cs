@@ -34,7 +34,9 @@ namespace ColourMemory
       /// <summary>
       ///   This is the event callback for the main window's close button.
       /// </summary>
-      /// <remarks> A MessageBox is shown to confirm if the user wants to exit de game.</remarks>
+      /// <remarks> A MessageBox is shown to confirm if the user wants to exit de game. While open,
+      /// the background window will be shown blurred. The effect disappears if the user cancels.
+      /// </remarks>
       /// <param name="sender"></param>
       /// <param name="e"></param>
       private void NavigationWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

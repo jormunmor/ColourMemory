@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 namespace ColourMemory.Tools
 {
    /// <summary>
-   /// Helper class to manage image and graphics drawing.
+   /// Static helper class to manage image and graphics drawing.
    /// </summary>
    public static class ImageTools
    {
@@ -49,7 +49,8 @@ namespace ColourMemory.Tools
       /// <param name="size">The list size</param>
       /// <returns>The list of colors.</returns>
       /// <remarks>
-      /// Each color is repeated twice, for the GameColour rules.
+      /// Each color is repeated twice, for the GameColour rules. The components of the colors are generated
+      /// randomly. This may cause some colors to be almost the same, but this can also make the game more challenging.
       /// </remarks>
       public static List<Color> GenerateRandomColorList(int size)
       {         
@@ -65,6 +66,13 @@ namespace ColourMemory.Tools
          return colorList;
       }
 
+      /// <summary>
+      /// This method applies a blurring effect over the given window.
+      /// </summary>
+      /// <remarks>
+      /// It's used before the user exits the game.
+      /// </remarks>
+      /// <param name="win">The target window.</param>
       public static void ApplyBlur(Window win)
       {
          var objBlur = new System.Windows.Media.Effects.BlurEffect();
@@ -72,6 +80,13 @@ namespace ColourMemory.Tools
          win.Effect = objBlur;
       }
 
+      /// <summary>
+      /// This method supresses all the effect of the given window.
+      /// </summary>
+      /// <remarks>
+      /// It's used if the user cancels exiting the game.
+      /// </remarks>
+      /// <param name="win">The target window.</param>
       public static void SupressEffects(Window win)
       {
          win.Effect = null;

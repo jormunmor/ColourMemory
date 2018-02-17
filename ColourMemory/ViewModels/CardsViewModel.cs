@@ -30,7 +30,7 @@ namespace ColourMemory.ViewModels
       /// <summary>
       /// An array containing all the cards in the game.
       /// </summary>
-      public Card[,] CardDeck { get; set; }
+      private Card[,] CardDeck { get; set; }
 
       /// <summary>
       /// The first card flipped by the user.
@@ -55,6 +55,27 @@ namespace ColourMemory.ViewModels
             {
                score = value;
                RaisePropertyChanged("Score");
+               SetScoreColor();
+            }
+         }
+      }
+
+      /// <summary>
+      /// The color of the score.
+      /// </summary>
+      /// <remarks>
+      /// Red if below zero, black if zero, green if greater than zero.
+      /// </remarks>
+      private SolidColorBrush scoreColor;
+      public SolidColorBrush ScoreColor
+      {
+         get { return scoreColor; }
+         set
+         {
+            if (scoreColor != value)
+            {
+               scoreColor = value;
+               RaisePropertyChanged("ScoreColor");
             }
          }
       }
@@ -103,17 +124,17 @@ namespace ColourMemory.ViewModels
          get { return _cellInfo; }
          set
          {
-            if(_cellInfo != value)
+            if (_cellInfo != value)
             {
                _cellInfo = value;
                RaisePropertyChanged("CellInfo");
             }
-            
+
             if (_cellInfo.Column == null)
             {
                return;
             }
-            CheckGameStatus(GetCardFromCellInfo(_cellInfo));         
+            CheckGameStatus(GetCardFromCellInfo(_cellInfo));
          }
       }
 
@@ -146,6 +167,8 @@ namespace ColourMemory.ViewModels
       {
          // Set score to zero
          Score = 0;
+         // Set the score color.
+         ScoreColor = new SolidColorBrush(Colors.Black);
          // Get the size of the game (width*width).
          BoardWidth = int.Parse(ConfigurationManager.AppSettings["board_width"]);
          GameSize = BoardWidth * BoardWidth;
@@ -180,7 +203,12 @@ namespace ColourMemory.ViewModels
          }
       }
 
-      Card GetCardFromCellInfo(DataGridCellInfo info)
+      /// <summary>
+      /// Helper method to recover the card present in a DataGridCellInfo
+      /// </summary>
+      /// <param name="info">The DataGridCellInfo the card belongs to</param>
+      /// <returns>The Card object.</returns>
+      private Card GetCardFromCellInfo(DataGridCellInfo info)
       {
          // First we recover the clicked card.
          DataGridColumn col = _cellInfo.Column;
@@ -204,10 +232,10 @@ namespace ColourMemory.ViewModels
       /// This method checks the game status after trying to flip a card.
       /// </summary>
       /// <param name="card"></param>
-      void CheckGameStatus(Card card)
+      private void CheckGameStatus(Card card)
       {
          // Check card and game status.
-         if(FlippedCard1 != null && FlippedCard2 != null)
+         if (FlippedCard1 != null && FlippedCard2 != null)
          {
             return;
          }
@@ -218,17 +246,38 @@ namespace ColourMemory.ViewModels
             {
                FlippedCard2 = card;
                Thread thread = new Thread(() => SleepAndUpdateGame());
-               thread.Start();               
+               thread.Start();
             }
             else // We only have one card face up (the new). Update FlippedCard1.
             {
                FlippedCard1 = card;
-            }            
+            }
          }
          RefresDataView();
       }
 
-      bool GameEnd()
+      /// <summary>
+      /// Helper method to set the color that will be shown for the score.
+      /// </summary>
+      private void SetScoreColor()
+      {
+         if(Score < 0)
+         {
+            ScoreColor = new SolidColorBrush(Colors.DarkRed);
+         } else if(Score > 0)
+         {
+            ScoreColor = new SolidColorBrush(Colors.Green);
+         } else
+         {
+            ScoreColor = new SolidColorBrush(Colors.Black);
+         }
+      }
+
+      /// <summary>
+      /// Helper method to check if the game is ended.
+      /// </summary>
+      /// <returns>False if any card is face down. True otherwise.</returns>
+      private bool GameEnd()
       {
          foreach(Card card in CardDeck)
          {
@@ -240,7 +289,10 @@ namespace ColourMemory.ViewModels
          return true;
       }
 
-      void CheckScoreAndFinish()
+      /// <summary>
+      /// This method shows the final score to the user, and store it in a file if it's a nre record.
+      /// </summary>
+      private void CheckScoreAndFinish()
       {
          string newRecord = "";
          List<int> recordList = TextTools.GetRecords();

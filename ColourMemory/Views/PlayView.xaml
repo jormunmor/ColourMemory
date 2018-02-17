@@ -58,12 +58,28 @@
 					</DataGrid.CellStyle>
 				</DataGrid> 
 			</Viewbox>
-		</Grid>
-		<Viewbox Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Stretch="Uniform" StretchDirection="Both">
-			<StackPanel Orientation="Horizontal">
-				<Label Content="Score: " />
-				<Label Content="{Binding Score, Mode=TwoWay}"/>
-			</StackPanel>
-		</Viewbox>
+			<Viewbox Grid.Row="2">
+				<StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal"  >
+					<Label Name="MyWipedText" Content="Score: " Foreground="{Binding ScoreColor}"  />
+					<TextBox Name="TextBoxScore" Text="{Binding Score, Mode=TwoWay}" Foreground="{Binding ScoreColor}" Style="{StaticResource TextBoxBase}" >
+						<TextBox.RenderTransform>
+							<ScaleTransform 
+									ScaleX="1" 
+								ScaleY="1" />
+						</TextBox.RenderTransform>
+						<TextBox.Triggers>
+							<EventTrigger RoutedEvent="TextBox.TextChanged">
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="TextBoxScore" Storyboard.TargetProperty="RenderTransform.ScaleX" From="1" To="1.5" Duration="0:0:0.5" AutoReverse="True" />
+										<DoubleAnimation Storyboard.TargetName="TextBoxScore" Storyboard.TargetProperty="RenderTransform.ScaleY" From="1" To="1.5" Duration="0:0:0.5" AutoReverse="True" />
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</TextBox.Triggers>
+					</TextBox>
+				</StackPanel>
+			</Viewbox>
+		</Grid>		
 	</Grid>
 </Page>

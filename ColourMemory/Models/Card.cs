@@ -15,7 +15,7 @@ namespace ColourMemory.Models
    /// This class represent a card.
    /// </summary>
    /// <remarks>
-   /// It contains a card color, an image for the back side, an image for the front side, 
+   /// It contains a card color, an image for the back side, an image for the front side, an image when it's removed,
    /// the side that is currently visible by the user, and an identifier for debugging purposes.
    /// </remarks>
    public class Card : BaseModel
@@ -231,6 +231,14 @@ namespace ColourMemory.Models
          VisibleSide.Source = TransparentImage.Source;
       }
 
+      /// <summary>
+      /// This method checks if a card is in a removed state.
+      /// </summary>
+      /// <remarks>
+      /// A card is considered to be removed if the visible side is set to transparent, in which case the background
+      /// of the containing element will be shown.
+      /// </remarks>
+      /// <returns>True if the car is not present in the board. False otherwise.</returns>
       public bool IsRemoved()
       {
          return VisibleSide.Source == TransparentImage.Source;

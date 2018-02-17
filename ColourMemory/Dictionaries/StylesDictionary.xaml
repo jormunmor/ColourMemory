@@ -5,7 +5,7 @@
 
 	<!-- This dictionary will hold the different styles used in the app.-->
 	
-	<!-- MAIN WINDOW -->
+	<!-- MAIN WINDOW -->	
 	<Style x:Key="GenericWindowStyle" TargetType="{x:Type Window}">
 		<Setter Property="Background">
 			<Setter.Value>
@@ -63,6 +63,7 @@
 		<Setter Property="Foreground" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent" />
 	</Style>	
+	<!-- END DATAGRID -->
 
 	<!-- DATAGRIDROW -->
 	<Style TargetType="{x:Type DataGridRow}">
@@ -74,6 +75,19 @@
 			</Trigger>
 		</Style.Triggers>
 	</Style>
-	<!-- END DATAGRID -->
+	<!-- END DATAGRIDROW -->
+
+	<!-- TEXTBOX -->
+	<Style x:Key="TextBoxBase" TargetType="{x:Type TextBox}">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Bottom" />
+		<Setter Property="IsManipulationEnabled"  Value="False" />
+		<Setter Property="IsReadOnly" Value="True" />
+		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+	</Style>
+	<!-- END TEXTBOX -->
 
 </ResourceDictionary>
