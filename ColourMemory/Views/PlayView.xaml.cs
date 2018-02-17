@@ -1,4 +1,5 @@
 ﻿using ColourMemory.Models;
+using ColourMemory.Tools;
 using ColourMemory.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,17 @@ namespace ColourMemory.Views
       public PlayView()
       {         
          InitializeComponent();
+      }
+
+      private void ButtonBack_Click(object sender, RoutedEventArgs e)
+      {
+         ImageTools.ApplyBlur(Application.Current.MainWindow);
+         var result = MessageBox.Show("All your progress will be lost. Leave current game?", "Confirmation required", MessageBoxButton.YesNo);
+         ImageTools.SupressEffects(Application.Current.MainWindow);
+         if (result.Equals(MessageBoxResult.Yes))
+         {
+            NavigationService?.Navigate(new StartView());
+         }         
       }
    }
 

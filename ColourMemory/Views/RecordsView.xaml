@@ -17,7 +17,7 @@
 		<Viewbox Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="Both">
 			<Image Source="pack://application:,,,/Resources/logo.png" VerticalAlignment="Top" HorizontalAlignment="Left"  />
 		</Viewbox>
-		<Viewbox Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="Both">
+		<Viewbox Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Stretch="Uniform" StretchDirection="Both" MaxHeight="150" Margin="5,0,0,0" >
 			<Button Name="ButtonBack" Grid.Column="0" Content="Back" Style="{StaticResource ButtonBase}" Click="ButtonBack_Click" />
 		</Viewbox>		
 		<Grid Grid.Column="1">
